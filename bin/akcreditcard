@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+# Include the appropriate lib path so we can load the lib.
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'akcreditcard';
+puts "Enter one or more cards to validate, one per line: "
+while (user_input = gets.chomp) != ""
+  begin
+    this_card = AKCreditCard.new(user_input)
+    puts this_card.to_s
+  rescue
+    puts "Invalid card. Cards may consist only of digits, dashes and spaces."
+  end
+end

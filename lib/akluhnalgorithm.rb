@@ -3,10 +3,10 @@
 # Author:: Ash Kyd (ash@kyd.com.au)
 # Copyright:: Copyright (2012) Ash Kyd
 
-module LuhnAlgorithm
+module AKLuhnAlgorithm
 
   # Validate a number with the Luhn algorithm.
-  def validateLuhn(number)
+  def validate_luhn(number)
   
     # Split our number into an array of stringy digits.
     digits = number.to_s.split(//)
@@ -15,9 +15,9 @@ module LuhnAlgorithm
     # digit. We can determine which of these we need to double using
     # a modulus operation on the array length so we only have to
     # loop once.
-    # If the modulus of the index matches doubleNum, we must
+    # If the modulus of the index matches double_num, we must
     # double the value.
-    doubleNum = (digits.length) % 2;
+    double_num = (digits.length) % 2;
     
     checksum = 0;
     
@@ -26,7 +26,7 @@ module LuhnAlgorithm
       digits[i] = digits[i].to_i
       
       # Check whether we need to double this.
-      if(i%2 == doubleNum)
+      if i % 2 == double_num
         digits[i] *= 2
         
         # Sum the values independently, i.e. "10" = 1 + 0
@@ -43,8 +43,6 @@ module LuhnAlgorithm
     
     # Card is valid if our checksum is divisible by ten
     valid = checksum % 10 == 0
-    
-    return valid
     
   end
   

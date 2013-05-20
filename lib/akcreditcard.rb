@@ -2,16 +2,16 @@
 # Author:: Ash Kyd (ash@kyd.com.au)
 # Copyright:: Copyright (2012) Ash Kyd
 
-require "./LuhnAlgorithm"
+require "akluhnalgorithm"
 
-class CreditCard
+class AKCreditCard
   # Include this algorithm, since it's 
-  include LuhnAlgorithm
+  include AKLuhnAlgorithm
   
   attr_accessor :number
   
-  # cardTypes stores card names and an expression to match against.
-  @@cardTypes = {
+  # card_types stores card names and an expression to match against.
+  @@card_types = {
     # AMEX begins with 34 or 37. 15 digits
     "AMEX" => /^(34|37)\d{13}$/,
     
@@ -25,10 +25,10 @@ class CreditCard
     "VISA" => /^4\d{12}\d{3}?$/
   }
 
-  def initialize(cardNumber)
+  def initialize(card_number)
     
     # Set our card number.
-    self.number = cardNumber
+    self.number = card_number
     
   end
 
@@ -37,8 +37,8 @@ class CreditCard
   def number=(value)
   
     # Let us set a string value in case of direct input.
-    if(value.class == String)
-      value = self.cardStringToNumber(value)
+    if value.class == String
+      value = self.card_s_to_i(value)
     end
     
     # And finally set our card number
@@ -48,21 +48,21 @@ class CreditCard
   
   def type
   
-    # Loop through each @@cardTypes spec and validate against it.
+    # Loop through each @@card_types spec and validate against it.
     # If the card matches any card type, return the name.
-    @@cardTypes.each do |spec|
-      if(spec[1].match(@number.to_s))
+    @@card_types.each do |spec|
+      if spec[1].match(@number.to_s)
         return spec[0]
       end;
     end
     
     # Otherwise, return a defualt value.
-    return "Unknown"
+    "Unknown"
     
   end
   
   def valid
-    if(self.validateLuhn(number))
+    if self.validate_luhn(number)
       return "valid"
     else
       return "invalid"
@@ -80,7 +80,7 @@ class CreditCard
   # Semi-validate syntax and convert a card number to an integer.
   # Accepts numbers, spaces and dashes in any arrangement.
   # Throws :badInput on malformed input.
-  def cardStringToNumber(value)
+  def card_s_to_i(value)
   
     # Strip out any leading/trailing whitespace
     value.strip!
@@ -90,10 +90,11 @@ class CreditCard
     
     # We have been handed a bad input, this is not in the correct
     # format.
-    if (value.to_i.to_s != value)
+    if value.to_i.to_s != value
       raise "Input not valid"
     end
-    return value.to_i
+    
+    value.to_i
     
   end
 

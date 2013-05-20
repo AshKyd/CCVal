@@ -1,5 +1,5 @@
 # CreditCard
-A class to superficially check credit card validdity using a Luhn
+A class to superficially check credit card validity using a Luhn
 algorithm.
 
 ## Usage (Command Line)

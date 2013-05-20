@@ -1,5 +1,9 @@
-require "./CreditCard"
+require "akcreditcard"
 require "minitest/autorun"
+
+# Include the appropriate lib path so we can load the lib.
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
  
 class TestSimpleNumber < Minitest::Test
  
@@ -17,22 +21,22 @@ class TestSimpleNumber < Minitest::Test
   self.assert_card("4111 1111 1111 1111","VISA","valid")
   end
   
-  def assert_card(number,expectedType,expectedValidity)
+  def assert_card(number,expected_type,expected_validity)
     # Instantiate a new card
     begin
-    myCard = CreditCard.new(number)
+    my_card = AKCreditCard.new(number)
   rescue
     # Continue tests on exception
   end
   
-  if(expectedType == nil)
+  if(expected_type == nil)
     # Expected Failure
-    assert_equal(NilClass,myCard.class)
+    assert_equal(NilClass,my_card.class)
   else
     # Expected success
-    assert_equal(CreditCard,myCard.class)
-    assert_equal(expectedValidity,myCard.valid)
-    assert_equal(expectedType,myCard.type)
+    assert_equal(AKCreditCard,my_card.class)
+    assert_equal(expected_type,my_card.type)
+    assert_equal(expected_validity,my_card.valid)
   end
   end
  
