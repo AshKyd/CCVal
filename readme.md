@@ -15,9 +15,9 @@ To use this script, ensure you have Ruby installed and that the
   ./bin/akcreditcard
 
 ## Usage (Ruby Code)
-This class can be used anywhere like so:
+This class can be installed as a ruby gem andused anywhere like so:
 
-    require 'akcreditcard';
+    require 'akcreditcard'
     my_card = AKCreditCard.new("0000-0000-0000-0000")
 
 The constructor accepts a string or numeric card value.
